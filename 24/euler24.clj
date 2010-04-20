@@ -14,9 +14,6 @@
       acc
       (recur (dec cnt) (* acc cnt)))))
 
-(defn- div [a b]
-  (int (/ a b)))
-
 (defn- branch [s parts i acc]
   "Seeks to the permutation at index i in permutation sequence s, representing partitions of 
   parts remaining elements. Accumulates sequence values in acc until desired index is reached."
@@ -29,7 +26,7 @@
         (if (nil? data) acc
           (recur remainder (dec parts) i (conj acc data))))
       :else
-        (let [permutation (nth s (div i partsize))
+        (let [permutation (nth s (quot i partsize))
               data (first permutation)
               remainder (rest permutation)]
           (recur remainder (dec parts) (mod i partsize) (conj acc data))))))
