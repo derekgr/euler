@@ -35,11 +35,11 @@
 (defn length [n] (length-from (strexpand (unit n)) 0))
 
 (defn length-seq [n] 
-  (map (fn [i] [i (length i)]) (range 10 n)))
+  (map (fn [i] [i (length i)]) (reverse (range 10 n))))
 
 (defn repeating-cycles [n]
   (for [[i [l rpt :as s]] (length-seq n) :when (not (nil? rpt))] [i l rpt]))
 
 (defn euler26 [] 
   (let [cycles (repeating-cycles 1000)]
-    (reduce (fn [[i l _ :as a] [i2 l2 _ :as b]] (if (> l2 l) b a)) [0 0] cycles)))
+    (some (fn [[i l _ :as a]] (if (= i (inc l)) a)) cycles)))
