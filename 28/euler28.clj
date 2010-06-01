@@ -1,9 +1,5 @@
 (ns euler28) 
 
-(let [two (BigDecimal. 2)]
-  (defn exp [n] 
-    (.pow two n)))
-
 (defn msqr [n]
   (let [t (inc (* 2 (dec n)))]
     (* t t)))
