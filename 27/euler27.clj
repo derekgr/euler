@@ -20,11 +20,12 @@
 (let [pset (prime-set 1000)] 
   (defn quad-length [a b]
     (let [stream (quad-seq a b)]
-      (loop [[h & t] stream i 0]
-        (if (and (pos? h) (contains? pset h)) (recur t (inc i)) i)))))
+      (count (take-while #(and (pos? %) (contains? pset %)) stream)))))
 
-(defn all-quads []
-  (for [x (range -999 1000) y (range -999 1000)] [(quad-length x y) [x y]]))
+(let [pset (take-while #(< % 1000) (primes))]
+  (defn all-quads []
+    (for [x (range -999 1000) y pset] [(quad-length x y) x y]))
+)
 
 (defn euler27 []
-  (reduce (fn [[l1 _ :as a] [l2 _ :as b]] (if (> l2 l1) b a)) [0 nil] (all-quads)))
+  (reduce (fn [a b] (if (> (b 0) (a 0)) b a)) [0 nil] (all-quads)))
