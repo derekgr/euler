@@ -20,7 +20,7 @@
 (let [pset (prime-set 1000)] 
   (defn quad-length [a b]
     (let [stream (quad-seq a b)]
-      (count (take-while #(and (pos? %) (contains? pset %)) stream)))))
+      (count (take-while #(and (pos? %) (pset %)) stream)))))
 
 (let [pset (take-while #(< % 1000) (primes))]
   (defn all-quads []
